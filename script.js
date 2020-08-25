@@ -6,6 +6,7 @@ const prevBtn = document.getElementById('prev');
 const playBtn = document.getElementById('play');
 const nextBtn = document.getElementById('next');
 
+
 // Music
 const songs = [{
     name        : 'song-1',
@@ -36,8 +37,10 @@ const songs = [{
 ]
 
 // CHeck if playing
-
 let isPlaying = false;
+
+// Current Song
+let songIndex = 0;
 
 
 // Play
@@ -57,12 +60,6 @@ function pauseSong(){
 }
 
 
-
-
-// Event Listeners
-playBtn.addEventListener('click', ()=> (isPlaying ? pauseSong():playSong()));
-
-
 //Update Dom
 function loadSong(song){
     title.textContent = song.displayName;
@@ -71,6 +68,27 @@ function loadSong(song){
     image.src = `img/${song.image}.jpg`;
 }
 
-// On Load 
+// Previous Song
+function prevSong() {
+    songIndex--;
+    if (songIndex < 0) {songIndex = songs.length-1}
+    loadSong(songs[songIndex]);
+    playSong();
+}
 
-loadSong(songs[0]);
+// Next Song
+function nextSong() {
+    songIndex++;
+    if (songIndex > songs.length-1) {songIndex = 0}
+    loadSong(songs[songIndex]);
+    playSong();
+}
+
+// Event Listeners
+playBtn.addEventListener('click', ()=> (isPlaying ? pauseSong():playSong()));
+prevBtn.addEventListener('click',  prevSong);
+nextBtn.addEventListener('click',  nextSong);
+
+
+// On Load 
+loadSong(songs[songIndex]);
