@@ -99,8 +99,14 @@ function updateProgressBar(e) {
         const durationMinutes = Math.floor(duration/60);
         let durationSeconds = Math.floor(duration%60);
         if(durationSeconds < 10){durationSeconds = `0${durationSeconds}`;}
+        // Delay switching duration Element to avoid NAN
         if (durationSeconds) {durationElement.textContent = `${durationMinutes}:${durationSeconds}`;}
 
+        // Calculate display for current time of current song
+        const currentMinutes = Math.floor(currentTime/60);
+        let currentSeconds = Math.floor(currentTime%60);
+        if(currentSeconds < 10){currentSeconds = `0${currentSeconds}`;}
+        currentTimeElement.textContent = `${currentMinutes}:${currentSeconds}`;
     }
 } 
 
